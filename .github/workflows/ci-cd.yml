@@ -1,0 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore dependencies
+        run: dotnet restore ./backend2/PortalProveedores.API/PortalProveedores.API.csproj
+      - name: Build
+        run: dotnet build ./backend2/PortalProveedores.API/PortalProveedores.API.csproj --configuration Release
+      - name: Test
+        run: dotnet test ./backend2/PortalProveedores.API/PortalProveedores.API.csproj
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - run: npm install --prefix frontend/portal-provedores
+      - run: npm run build --prefix frontend/portal-provedores
+
