@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "dtZaFMRv+l4eWMNXRITr5ZQCzhKj0nzcO6zN7FVYlUs=",
+  "Source": "PortalProveedores.API",
+  "BasePath": "_content/PortalProveedores.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend2/PortalProveedores.API
+      dockerfile: Dockerfile
+    container_name: backend
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=PortalDB;User Id=sa;Password=r1P1pS4pR00V3d0R35;
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=r1P1pS4pR00V3d0R35
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
